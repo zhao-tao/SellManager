@@ -5,4 +5,5 @@ package com.citypass.sellmanager.retiofitApi;
  * 更方便的调用RetrofitService定义的方法
  */
 public class DataManager {
+
 }

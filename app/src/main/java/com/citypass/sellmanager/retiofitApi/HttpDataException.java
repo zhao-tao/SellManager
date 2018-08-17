@@ -2,7 +2,7 @@ package com.citypass.sellmanager.retiofitApi;
 
 /**
  * Created by 赵涛 on 2018/8/17.
- * Http请求异常
+ * 自定义Http请求异常
  */
 class HttpDataException extends RuntimeException {
 

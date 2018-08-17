@@ -11,7 +11,7 @@ import okhttp3.Request;
 
 /**
  * Created by Administrator on 2017/11/21.
- * 优化请求的Log输出格式
+ * 自定义网络请求日志输出
  */
 
 public class LogInterceptor implements Interceptor {
