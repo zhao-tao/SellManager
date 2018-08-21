@@ -33,4 +33,5 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava:2.4.0'
     //    事件消费在Android主线程，需要添加rxAndroid（Rxjava的扩展）
     implementation 'io.reactivex:rxandroid:1.2.1'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
 }

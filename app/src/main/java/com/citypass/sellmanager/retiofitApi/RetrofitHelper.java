@@ -16,13 +16,11 @@ public class RetrofitHelper {
     private static final int TIMEOUT = 5;
     private static final String BASE_URL = "https://api.douban.com/v2/";
     private Retrofit retrofit;
-    private final RetrofitService retrofitService;
-
     private static RetrofitHelper instance = null;
 
     private RetrofitHelper() {
         retrofit = init();
-        retrofitService = retrofit.create(RetrofitService.class);
+
     }
 
     private Retrofit init() {
@@ -51,4 +49,7 @@ public class RetrofitHelper {
     }
 
 
+    public RetrofitService getService() {
+        return retrofit.create(RetrofitService.class);
+    }
 }
