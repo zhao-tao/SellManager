@@ -1,4 +1,4 @@
-package com.citypass.sellmanager.bean;
+package com.citypass.sellmanager.model;
 
 import java.util.List;
 

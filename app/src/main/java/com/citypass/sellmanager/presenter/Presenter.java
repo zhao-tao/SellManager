@@ -1,4 +1,4 @@
-package com.citypass.sellmanager.presenter.interfaces;
+package com.citypass.sellmanager.presenter;
 
 import android.content.Intent;
 

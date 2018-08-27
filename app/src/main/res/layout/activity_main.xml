@@ -4,14 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.activities.MainActivity">
+    tools:context=".view.activities.MainActivity">
 
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="getFollowers"
-        android:text="请求" />
+        android:text="请求货道数据" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_slot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
 
     <ImageView
         android:id="@+id/iv_book"
