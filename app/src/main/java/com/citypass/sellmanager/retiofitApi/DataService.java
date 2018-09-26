@@ -15,5 +15,5 @@ import rx.Observable;
 public interface DataService {
 
     @GET("slot.php?Act=inform")
-    Observable<HttpResult<ArrayList<SlotBean>>> getSlotList(@Query("ImeiId") String imeiId);
+    Observable<HttpResult<ArrayList<SlotBean>>> getSlotList(@Query("ImeiId") String imeiId, @Query("Md5Code") String md5);
 }

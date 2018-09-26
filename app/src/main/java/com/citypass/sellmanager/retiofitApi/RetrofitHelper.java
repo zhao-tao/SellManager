@@ -1,5 +1,6 @@
 package com.citypass.sellmanager.retiofitApi;
 
+import com.citypass.sellmanager.config.Utils;
 import com.citypass.sellmanager.model.SlotBean;
 
 import java.io.UnsupportedEncodingException;
@@ -95,7 +96,7 @@ public class RetrofitHelper {
      * @param ImeiId
      */
     public void getSlotList(Subscriber<ArrayList<SlotBean>> subscriber, String ImeiId) {
-        Observable observable = dataService.getSlotList(ImeiId).map(new HttpResultFunc<ArrayList<SlotBean>>());
+        Observable observable = dataService.getSlotList(ImeiId, Utils.getMd5("inform" + ImeiId)).map(new HttpResultFunc<ArrayList<SlotBean>>());
         toSubscribe(observable, subscriber);
     }
 }

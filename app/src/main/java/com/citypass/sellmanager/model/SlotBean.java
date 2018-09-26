@@ -13,7 +13,9 @@ public class SlotBean {
      * isSell : true
      */
 
+
     private int SlotId;
+    private int LocalId;
     private int CardKindId;
     private String CardImg;
     private int SlotBalance;
@@ -51,11 +53,23 @@ public class SlotBean {
         this.SlotBalance = SlotBalance;
     }
 
-    public boolean getIsSell() {
+    public int getLocalId() {
+        if (SlotId > 10000) {
+            return (SlotId % 100);
+        } else {
+            return (SlotId % 10);
+        }
+    }
+
+    public void setLocalId(int localId) {
+        LocalId = localId;
+    }
+
+    public boolean isSell() {
         return isSell;
     }
 
-    public void setIsSell(boolean isSell) {
-        this.isSell = isSell;
+    public void setSell(boolean sell) {
+        isSell = sell;
     }
 }

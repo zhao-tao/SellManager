@@ -5,18 +5,31 @@
 
     <RelativeLayout
         android:id="@+id/bg"
-        android:background="@android:color/holo_green_light"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:elevation="1dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp">
+
+        <TextView
+            android:id="@+id/tv_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:singleLine="true"
+            android:text="00" />
 
         <TextView
             android:id="@+id/tv_amount"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_num"
+            android:layout_centerHorizontal="true"
+            android:text="null" />
 
     </RelativeLayout>
-
 
 </FrameLayout>

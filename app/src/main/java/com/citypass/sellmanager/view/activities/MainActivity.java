@@ -6,23 +6,23 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.citypass.sellmanager.R;
 import com.citypass.sellmanager.model.SlotBean;
 import com.citypass.sellmanager.retiofitApi.HttpDataListener;
 import com.citypass.sellmanager.retiofitApi.HttpDataSubscriber;
 import com.citypass.sellmanager.retiofitApi.RetrofitHelper;
+import com.citypass.sellmanager.view.adapter.SlotAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView tvTest;
-    private ImageView ivBook;
-    private Button button;
     private RecyclerView rvSlot;
 
     @Override
@@ -31,11 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         rvSlot = findViewById(R.id.rv_slot);
         tvTest = findViewById(R.id.tv_book);
-        ivBook = findViewById(R.id.iv_book);
-        button = findViewById(R.id.button);
-
-        GridLayoutManager LayoutManager = new GridLayoutManager(this, 10);
-
+        Button button = findViewById(R.id.button);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,25 +45,37 @@ public class MainActivity extends AppCompatActivity {
         HttpDataListener listener = new HttpDataListener<ArrayList<SlotBean>>() {
             @Override
             public void onNext(ArrayList<SlotBean> slotBeans) {
-                sortSlotData(slotBeans);
-
-                tvTest.setText(slotBeans.get(0).getCardImg());
-                Glide.with(MainActivity.this).load(slotBeans.get(0).getCardImg()).into(ivBook);
+                tvTest.setText(getResources().getString(R.string.attention));
+                Collections.sort(slotBeans, new SortById());
+                initSlotList(slotBeans);
             }
         };
         RetrofitHelper.getInstance().getSlotList(new HttpDataSubscriber(listener, MainActivity.this), "710033000103");
 
     }
 
-    /**
-     * 对货道数据进行排序和规整，（1-64货道）
-     *
-     * @param slotBeans
-     */
-    private void sortSlotData(ArrayList<SlotBean> slotBeans) {
-
+    private void initSlotList(ArrayList<SlotBean> slotBeans) {
+        GridLayoutManager LayoutManager = new GridLayoutManager(this, 10);
+        rvSlot.setLayoutManager(LayoutManager);
+        SlotAdapter slotAdapter = new SlotAdapter(this, slotBeans);
+        rvSlot.setAdapter(slotAdapter);
+        slotAdapter.setOnClickListener(new SlotAdapter.onItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(MainActivity.this, position + "", Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
-
-
 }
+
+class SortById implements Comparator {
+    public int compare(Object o1, Object o2) {
+        SlotBean s1 = (SlotBean) o1;
+        SlotBean s2 = (SlotBean) o2;
+        if (s1.getSlotId() > s2.getSlotId())
+            return 1;
+        return -1;
+    }
+}
+
