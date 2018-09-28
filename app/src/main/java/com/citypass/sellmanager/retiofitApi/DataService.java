@@ -1,5 +1,6 @@
 package com.citypass.sellmanager.retiofitApi;
 
+import com.citypass.sellmanager.model.HttpBean;
 import com.citypass.sellmanager.model.SlotBean;
 
 import java.util.ArrayList;
@@ -16,4 +17,7 @@ public interface DataService {
 
     @GET("slot.php?Act=inform")
     Observable<HttpResult<ArrayList<SlotBean>>> getSlotList(@Query("ImeiId") String imeiId, @Query("Md5Code") String md5);
+
+    @GET("slot.php?Act=login")
+    Observable<HttpBean> verifyUser(@Query("UserName") String name,@Query("PassWord") String passWord, @Query("Md5Code") String md5);
 }

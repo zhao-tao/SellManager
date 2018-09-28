@@ -1,6 +1,7 @@
 package com.citypass.sellmanager.retiofitApi;
 
 import com.citypass.sellmanager.config.Utils;
+import com.citypass.sellmanager.model.HttpBean;
 import com.citypass.sellmanager.model.SlotBean;
 
 import java.io.UnsupportedEncodingException;
@@ -89,6 +90,10 @@ public class RetrofitHelper {
         }
     }
 
+    public void verifyUser(Subscriber<HttpBean> subscriber, String userName, String passWord) {
+        Observable observable = dataService.verifyUser(userName, passWord, Utils.getMd5("login" + userName + passWord)).map(new DataResult<HttpBean>());
+        toSubscribe(observable, subscriber);
+    }
     /**
      * 获取对应售货机的所有货道数据
      *
@@ -99,4 +104,6 @@ public class RetrofitHelper {
         Observable observable = dataService.getSlotList(ImeiId, Utils.getMd5("inform" + ImeiId)).map(new HttpResultFunc<ArrayList<SlotBean>>());
         toSubscribe(observable, subscriber);
     }
+
+
 }
