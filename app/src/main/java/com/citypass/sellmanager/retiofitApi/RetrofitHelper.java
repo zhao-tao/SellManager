@@ -2,6 +2,7 @@ package com.citypass.sellmanager.retiofitApi;
 
 import com.citypass.sellmanager.config.Utils;
 import com.citypass.sellmanager.model.HttpBean;
+import com.citypass.sellmanager.model.HttpResult;
 import com.citypass.sellmanager.model.SlotBean;
 
 import java.io.UnsupportedEncodingException;
@@ -83,7 +84,7 @@ public class RetrofitHelper {
                 e.printStackTrace();
             }
             if (httpResult.getRet() < 0) {
-                throw new RuntimeException(httpResult.getDes());
+                throw new HttpException(httpResult.getDes());
             }
 
             return httpResult.getData();

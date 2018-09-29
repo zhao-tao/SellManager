@@ -1,12 +1,15 @@
 package com.citypass.sellmanager.view.activities;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.media.MediaSync;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +28,8 @@ import com.citypass.sellmanager.view.dialog.LoginBuilder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
+import static com.citypass.sellmanager.config.SellApp.Imei;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,25 +61,7 @@ public class MainActivity extends AppCompatActivity {
         btnCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                final EditText editText = new EditText(MainActivity.this);
-                String imei = userInfo.getString("imei", "");
-                builder.setTitle(TextUtils.isEmpty(imei) ? R.string.input_imei : R.string.change_imei);
-                builder.setView(editText);
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (TextUtils.isEmpty(editText.getText()) || editText.length() != 3) {
-                            Toast.makeText(MainActivity.this, R.string.input_error, Toast.LENGTH_SHORT).show();
-                        } else {
-                            btnCode.setText("设备编号:" + editText.getText());
-                            SharedPreferences.Editor edit = userInfo.edit();
-                            edit.putString("imei", editText.getText().toString());
-                            edit.apply();
-                        }
-                    }
-                });
-                builder.show();
+                showImeiDialog();
             }
         });
 
@@ -84,6 +71,29 @@ public class MainActivity extends AppCompatActivity {
                 showLoginDialog();
             }
         });
+    }
+
+    private void showImeiDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        final EditText editText = new EditText(MainActivity.this);
+        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+        String imei = userInfo.getString("imei", "");
+        builder.setTitle(TextUtils.isEmpty(imei) ? R.string.input_imei : R.string.change_imei);
+        builder.setView(editText);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (TextUtils.isEmpty(editText.getText()) || editText.length() != 3) {
+                    Toast.makeText(MainActivity.this, R.string.input_error, Toast.LENGTH_SHORT).show();
+                } else {
+                    btnCode.setText("设备编号:" + editText.getText());
+                    SharedPreferences.Editor edit = userInfo.edit();
+                    edit.putString("imei", editText.getText().toString());
+                    edit.apply();
+                }
+            }
+        });
+        builder.show();
     }
 
     private void showLoginDialog() {
@@ -100,8 +110,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean checkUserInfo() {
-        if (userInfo != null && TextUtils.isEmpty(userInfo.getString("imei", ""))) {
-            btnCode.setText(userInfo.getString("imei", ""));
+        if (userInfo != null && !TextUtils.isEmpty(userInfo.getString("imei", ""))) {
+            btnCode.setText("设备编号:" + userInfo.getString("imei", ""));
         }
         if (userInfo == null || TextUtils.isEmpty(userInfo.getString("name", ""))) {
             showLoginDialog();
@@ -115,6 +125,13 @@ public class MainActivity extends AppCompatActivity {
         if (!checkUserInfo()) {
             return;
         }
+
+        if (TextUtils.isEmpty(userInfo.getString("imei", ""))) {
+            showImeiDialog();
+            Toast.makeText(this, R.string.input_error, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         HttpDataListener listener = new HttpDataListener<ArrayList<SlotBean>>() {
             @Override
             public void onNext(ArrayList<SlotBean> slotBeans) {
@@ -123,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                 initSlotList(slotBeans);
             }
         };
-        RetrofitHelper.getInstance().getSlotList(new HttpDataSubscriber(listener, MainActivity.this), "710033000103");
+        RetrofitHelper.getInstance().getSlotList(new HttpDataSubscriber(listener, MainActivity.this), Imei + userInfo.getString("imei", ""));
 
     }
 

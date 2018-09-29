@@ -1,6 +1,7 @@
 package com.citypass.sellmanager.retiofitApi;
 
 import com.citypass.sellmanager.model.HttpBean;
+import com.citypass.sellmanager.model.HttpResult;
 import com.citypass.sellmanager.model.SlotBean;
 
 import java.util.ArrayList;

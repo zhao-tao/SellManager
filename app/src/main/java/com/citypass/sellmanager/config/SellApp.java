@@ -8,5 +8,7 @@ import android.app.Application;
  */
 public class SellApp extends Application {
 
+    public static String Imei = "710033000";
+
 
 }

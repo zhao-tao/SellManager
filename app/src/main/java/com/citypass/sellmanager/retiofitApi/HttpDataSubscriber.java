@@ -24,6 +24,9 @@ public class HttpDataSubscriber<T> extends Subscriber<T> {
 
     @Override
     public void onError(Throwable e) {
+        if (e instanceof HttpException) {
+            httpDataListener.onError(context, e.getMessage());
+        }
 
 
     }

@@ -1,4 +1,4 @@
-package com.citypass.sellmanager.retiofitApi;
+package com.citypass.sellmanager.model;
 
 /**
  * Created by 赵涛 on 2018/8/24.
