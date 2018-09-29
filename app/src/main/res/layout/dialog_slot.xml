@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_img"
+        android:layout_width="280dp"
+        android:layout_height="180dp"
+        android:layout_margin="20dp"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/tv_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textSize="20dp" />
+
+
+    <Button
+        android:id="@+id/btn_change_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="切换卡种类" />
+
+    <Button
+        android:id="@+id/btn_set_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="配置货道余量" />
+
+    <Button
+        android:id="@+id/btn_sure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:text="确定" />
+
+</LinearLayout>

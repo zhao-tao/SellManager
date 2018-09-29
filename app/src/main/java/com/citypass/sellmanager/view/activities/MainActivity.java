@@ -3,7 +3,6 @@ package com.citypass.sellmanager.view.activities;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.media.MediaSync;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -24,10 +23,13 @@ import com.citypass.sellmanager.retiofitApi.HttpDataSubscriber;
 import com.citypass.sellmanager.retiofitApi.RetrofitHelper;
 import com.citypass.sellmanager.view.adapter.SlotAdapter;
 import com.citypass.sellmanager.view.dialog.LoginBuilder;
+import com.citypass.sellmanager.view.dialog.SlotDialog;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
+import butterknife.ButterKnife;
 
 import static com.citypass.sellmanager.config.SellApp.Imei;
 
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         btnLogin = findViewById(R.id.btn_login);
         btnCode = findViewById(R.id.btn_code);
         Button btnRefresh = findViewById(R.id.btn_refresh);
@@ -139,12 +142,19 @@ public class MainActivity extends AppCompatActivity {
                 Collections.sort(slotBeans, new SortById());
                 initSlotList(slotBeans);
             }
+
+            @Override
+            public void onError(Context context, String msg) {
+                super.onError(context, msg);
+                rvSlot.setVisibility(View.INVISIBLE);
+                tvNotice.setVisibility(View.INVISIBLE);
+            }
         };
         RetrofitHelper.getInstance().getSlotList(new HttpDataSubscriber(listener, MainActivity.this), Imei + userInfo.getString("imei", ""));
 
     }
 
-    private void initSlotList(ArrayList<SlotBean> slotBeans) {
+    private void initSlotList(final ArrayList<SlotBean> slotBeans) {
         rvSlot.setVisibility(View.VISIBLE);
         tvNotice.setVisibility(View.VISIBLE);
         GridLayoutManager LayoutManager = new GridLayoutManager(this, 10);
@@ -154,7 +164,9 @@ public class MainActivity extends AppCompatActivity {
         slotAdapter.setOnClickListener(new SlotAdapter.onItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(MainActivity.this, position + "", Toast.LENGTH_LONG).show();
+                SlotDialog slotDialog = new SlotDialog(MainActivity.this, slotBeans.get(position));
+                slotDialog.show();
+//                Toast.makeText(MainActivity.this, position + "", Toast.LENGTH_LONG).show();
             }
         });
 
