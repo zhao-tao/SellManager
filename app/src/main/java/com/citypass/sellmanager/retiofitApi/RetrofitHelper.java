@@ -1,6 +1,9 @@
 package com.citypass.sellmanager.retiofitApi;
 
+import android.text.TextUtils;
+
 import com.citypass.sellmanager.config.Utils;
+import com.citypass.sellmanager.model.CardBean;
 import com.citypass.sellmanager.model.HttpBean;
 import com.citypass.sellmanager.model.HttpResult;
 import com.citypass.sellmanager.model.SlotBean;
@@ -8,6 +11,7 @@ import com.citypass.sellmanager.model.SlotBean;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -19,6 +23,8 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+
+import static com.citypass.sellmanager.config.SellApp.userId;
 
 /**
  * Created by 赵涛 on 2018/8/17.
@@ -95,6 +101,7 @@ public class RetrofitHelper {
         Observable observable = dataService.verifyUser(userName, passWord, Utils.getMd5("login" + userName + passWord)).map(new DataResult<HttpBean>());
         toSubscribe(observable, subscriber);
     }
+
     /**
      * 获取对应售货机的所有货道数据
      *
@@ -106,5 +113,23 @@ public class RetrofitHelper {
         toSubscribe(observable, subscriber);
     }
 
+    public void chooseCard(Subscriber<ArrayList<CardBean>> subscriber) {
+        Observable observable = dataService.chooseCard(Utils.getMd5("cardinfo")).map(new HttpResultFunc<ArrayList<CardBean>>());
+        toSubscribe(observable, subscriber);
+    }
 
+    public void confirmSlot(Subscriber<HttpBean> subscriber, String slotId, String cardId, int balance) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("SlotId", slotId);
+        if (!TextUtils.isEmpty(cardId)) {
+            params.put("CardId", cardId);
+        }
+        params.put("Balance", balance + "");
+        params.put("UserId", userId);
+        params.put("Md5Code", Utils.getMd5("supply" + userId));
+//        params.put("Md5Code", "12345");
+        Observable observable = dataService.confirmSlot(params).map(new DataResult<HttpBean>());
+        toSubscribe(observable, subscriber);
+
+    }
 }

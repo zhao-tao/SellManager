@@ -15,7 +15,12 @@
 
     <string name="input_imei">请输入补货设备的编号：</string>
     <string name="change_imei">请输入要切换的设备编号：</string>
+    <string name="change_card">请输入要切换的卡类型编号：</string>
+    <string name="input_num">请输入配置的货道余量：</string>
     <string name="input_error">请输入正确的设备编号(3位数字)</string>
+    <string name="input_null">请输入有效的配置信息</string>
+
+
 
 
 </resources>

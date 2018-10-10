@@ -1,13 +1,16 @@
 package com.citypass.sellmanager.retiofitApi;
 
+import com.citypass.sellmanager.model.CardBean;
 import com.citypass.sellmanager.model.HttpBean;
 import com.citypass.sellmanager.model.HttpResult;
 import com.citypass.sellmanager.model.SlotBean;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 import rx.Observable;
 
 /**
@@ -20,5 +23,11 @@ public interface DataService {
     Observable<HttpResult<ArrayList<SlotBean>>> getSlotList(@Query("ImeiId") String imeiId, @Query("Md5Code") String md5);
 
     @GET("slot.php?Act=login")
-    Observable<HttpBean> verifyUser(@Query("UserName") String name,@Query("PassWord") String passWord, @Query("Md5Code") String md5);
+    Observable<HttpBean> verifyUser(@Query("UserName") String name, @Query("PassWord") String passWord, @Query("Md5Code") String md5);
+
+    @GET("slot.php?Act=cardinfo")
+    Observable<HttpResult<ArrayList<CardBean>>> chooseCard(@Query("cardinfo") String cardinfo);
+
+    @GET("slot.php?Act=supply")
+    Observable<HttpBean> confirmSlot(@QueryMap Map<String, String> params);
 }

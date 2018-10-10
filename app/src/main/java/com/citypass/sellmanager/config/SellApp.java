@@ -9,6 +9,12 @@ import android.app.Application;
 public class SellApp extends Application {
 
     public static String Imei = "710033000";
+    public static String userId = "";
+    public static SellApp sellApp;
 
-
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        sellApp = this;
+    }
 }

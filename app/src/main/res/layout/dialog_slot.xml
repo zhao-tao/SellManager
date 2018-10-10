@@ -17,27 +17,48 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:textColor="#000"
         android:textSize="20dp" />
 
 
-    <Button
-        android:id="@+id/btn_change_card"
+    <EditText
+        android:id="@+id/ed_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="切换卡种类" />
+        android:hint="@string/change_card"
+        android:inputType="number"
+        android:singleLine="true" />
 
-    <Button
-        android:id="@+id/btn_set_num"
+    <EditText
+        android:id="@+id/ed_num"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="配置货道余量" />
+        android:hint="@string/input_num"
+        android:inputType="number"
+        android:singleLine="true" />
 
-    <Button
-        android:id="@+id/btn_sure"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
-        android:text="确定" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_sure"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="确定" />
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="取消" />
+
+
+    </LinearLayout>
+
 
 </LinearLayout>

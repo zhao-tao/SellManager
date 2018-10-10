@@ -32,6 +32,7 @@ import java.util.Comparator;
 import butterknife.ButterKnife;
 
 import static com.citypass.sellmanager.config.SellApp.Imei;
+import static com.citypass.sellmanager.config.SellApp.userId;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
             public void editButton(String text) {
                 btnLogin.setText(TextUtils.isEmpty(text) ? "未登陆" : text);
                 if (TextUtils.isEmpty(text)) {
+                    userId = "";
                     rvSlot.setVisibility(View.INVISIBLE);
                     tvNotice.setVisibility(View.INVISIBLE);
                 }
@@ -121,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
         btnLogin.setText(userInfo.getString("name", ""));
+        userId = userInfo.getString("name", "");
+
         return true;
     }
 
