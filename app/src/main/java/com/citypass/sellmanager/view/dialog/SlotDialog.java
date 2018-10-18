@@ -27,15 +27,21 @@ public class SlotDialog extends Dialog {
 
 
     private final SlotBean slotData;
+    private final ReFreshListener reFreshListener;
     ImageView ivImg;
     TextView tvId;
     private EditText edCard;
     private EditText edNum;
 
+    public interface ReFreshListener {
+        void reFreshList();
+    }
 
-    public SlotDialog(@NonNull Context context, SlotBean slotData) {
+
+    public SlotDialog(@NonNull Context context, SlotBean slotData, ReFreshListener reFreshListener) {
         super(context, R.style.MyDialog);
         this.slotData = slotData;
+        this.reFreshListener = reFreshListener;
     }
 
     @Override
@@ -79,6 +85,7 @@ public class SlotDialog extends Dialog {
                     Toast.makeText(getContext(), data.getDes(), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getContext(), "修改成功", Toast.LENGTH_SHORT).show();
+                    reFreshListener.reFreshList();
                     dismiss();
                 }
             }

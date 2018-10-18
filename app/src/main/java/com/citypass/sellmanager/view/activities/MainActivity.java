@@ -168,7 +168,12 @@ public class MainActivity extends AppCompatActivity {
         slotAdapter.setOnClickListener(new SlotAdapter.onItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                SlotDialog slotDialog = new SlotDialog(MainActivity.this, slotBeans.get(position));
+                SlotDialog slotDialog = new SlotDialog(MainActivity.this, slotBeans.get(position), new SlotDialog.ReFreshListener() {
+                    @Override
+                    public void reFreshList() {
+                        requestSlot();
+                    }
+                });
                 slotDialog.show();
 //                Toast.makeText(MainActivity.this, position + "", Toast.LENGTH_LONG).show();
             }

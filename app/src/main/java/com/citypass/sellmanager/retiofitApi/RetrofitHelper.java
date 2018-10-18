@@ -126,8 +126,7 @@ public class RetrofitHelper {
         }
         params.put("Balance", balance + "");
         params.put("UserId", userId);
-        params.put("Md5Code", Utils.getMd5("supply" + userId));
-//        params.put("Md5Code", "12345");
+        params.put("Md5Code", Utils.getMd5("supply" + "jiangnan"));
         Observable observable = dataService.confirmSlot(params).map(new DataResult<HttpBean>());
         toSubscribe(observable, subscriber);
 

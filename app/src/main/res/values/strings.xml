@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SellManager</string>
 
-    <string name="attention">说明：货道运行正常为绿色，异常或缺货为红色\n数字分别为货道编号和货物余量</string>
+    <string name="attention">说明：\n      货道运行正常为绿色，低货量为黄色，异常或无货为红色\n     数字分别为货道编号和货物余量</string>
     <string name="user_input">请输入用户名和密码：</string>
 
     <string name="login">登陆</string>

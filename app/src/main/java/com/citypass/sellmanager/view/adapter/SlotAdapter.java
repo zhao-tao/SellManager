@@ -1,6 +1,7 @@
 package com.citypass.sellmanager.view.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,9 +60,12 @@ public class SlotAdapter extends RecyclerView.Adapter<mViewHolder> {
 
         if (!datas.get(position).isSell()) {
             holder.bg.setBackground(context.getResources().getDrawable(R.drawable.shape_red));
-        } else {
+        } else if (datas.get(position).getSlotBalance() > 5) {
             holder.bg.setBackground(context.getResources().getDrawable(R.drawable.shape_green));
+        }else{
+            holder.bg.setBackgroundColor(Color.YELLOW);
         }
+
 
         View itemView = ((FrameLayout) holder.itemView).getChildAt(0);
         if (itemClick != null) {
