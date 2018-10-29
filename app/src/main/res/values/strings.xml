@@ -20,6 +20,7 @@
     <string name="input_error">请输入正确的设备编号(3位数字)</string>
     <string name="input_null">请输入有效的配置信息</string>
 
+    <string name="commit_all">补满货道（20张）</string>
 
 
 

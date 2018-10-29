@@ -21,13 +21,13 @@
         android:textSize="20dp" />
 
 
-    <EditText
-        android:id="@+id/ed_card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/change_card"
-        android:inputType="number"
-        android:singleLine="true" />
+    <!--<EditText-->
+        <!--android:id="@+id/ed_card"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="@string/change_card"-->
+        <!--android:inputType="number"-->
+        <!--android:singleLine="true" />-->
 
     <EditText
         android:id="@+id/ed_num"
@@ -35,6 +35,8 @@
         android:layout_height="wrap_content"
         android:hint="@string/input_num"
         android:inputType="number"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:singleLine="true" />
 
     <LinearLayout
@@ -59,6 +61,14 @@
 
 
     </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_all"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:text="@string/commit_all"
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>

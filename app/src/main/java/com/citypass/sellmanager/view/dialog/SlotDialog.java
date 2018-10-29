@@ -28,9 +28,10 @@ public class SlotDialog extends Dialog {
 
     private final SlotBean slotData;
     private final ReFreshListener reFreshListener;
+    private final Context context;
     ImageView ivImg;
     TextView tvId;
-    private EditText edCard;
+    //    private EditText edCard;
     private EditText edNum;
 
     public interface ReFreshListener {
@@ -40,6 +41,7 @@ public class SlotDialog extends Dialog {
 
     public SlotDialog(@NonNull Context context, SlotBean slotData, ReFreshListener reFreshListener) {
         super(context, R.style.MyDialog);
+        this.context = context;
         this.slotData = slotData;
         this.reFreshListener = reFreshListener;
     }
@@ -50,18 +52,19 @@ public class SlotDialog extends Dialog {
         setContentView(R.layout.dialog_slot);
         ivImg = findViewById(R.id.iv_img);
         tvId = findViewById(R.id.tv_id);
-        edCard = findViewById(R.id.ed_card);
+//        edCard = findViewById(R.id.ed_card);
         edNum = findViewById(R.id.ed_num);
         Button btnSure = findViewById(R.id.btn_sure);
         Button btnCancel = findViewById(R.id.btn_cancel);
+        Button btnAll = findViewById(R.id.btn_all);
 
         btnSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(edCard.getText()) && TextUtils.isEmpty(edNum.getText())) {
+                if (TextUtils.isEmpty(edNum.getText())) {
                     Toast.makeText(getContext(), R.string.input_null, Toast.LENGTH_SHORT).show();
                 } else {
-                    confirmSlot();
+                    confirmSlot(false);
                 }
             }
         });
@@ -72,12 +75,19 @@ public class SlotDialog extends Dialog {
                 dismiss();
             }
         });
+
+        btnAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmSlot(true);
+            }
+        });
     }
 
     /**
      * 提交货道信息
      */
-    private void confirmSlot() {
+    private void confirmSlot(boolean isFull) {
         HttpDataListener<HttpBean> dataListener = new HttpDataListener<HttpBean>() {
             @Override
             public void onNext(HttpBean data) {
@@ -95,8 +105,16 @@ public class SlotDialog extends Dialog {
                 super.onError(context, msg);
             }
         };
+
+        int i;
+        if (isFull) {
+            i = 20;
+        } else {
+            i = Integer.parseInt(edNum.getText().toString());
+        }
+
         RetrofitHelper.getInstance().confirmSlot(new HttpDataSubscriber(dataListener, getContext()),
-                slotData.getSlotId() + "", edCard.getText().toString(), Integer.parseInt(edNum.getText().toString()));
+                slotData.getSlotId() + "", "", i);
 
     }
 

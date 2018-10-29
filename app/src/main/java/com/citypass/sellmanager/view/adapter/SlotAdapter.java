@@ -62,10 +62,9 @@ public class SlotAdapter extends RecyclerView.Adapter<mViewHolder> {
             holder.bg.setBackground(context.getResources().getDrawable(R.drawable.shape_red));
         } else if (datas.get(position).getSlotBalance() > 5) {
             holder.bg.setBackground(context.getResources().getDrawable(R.drawable.shape_green));
-        }else{
+        } else {
             holder.bg.setBackgroundColor(Color.YELLOW);
         }
-
 
         View itemView = ((FrameLayout) holder.itemView).getChildAt(0);
         if (itemClick != null) {
